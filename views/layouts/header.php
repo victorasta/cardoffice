@@ -12,13 +12,14 @@ $consulta = mysqli_query($con,$query);
     <head>
     <title>Cardoffice</title>
     
-        <script src="<?=base_url?>assets/js/homePanel.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"/>
+    <script src="<?=base_url?>assets/js/homePanel.js"></script>
+        <script src="<?=base_url?>assets/js/jquery-1.11.1.min.js"></script>
+        <link href="<?=base_url?>assets/css/bootstrap/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link rel="stylesheet" href="assets/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <!-- <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"/>
+        -->
         <link href="<?=base_url?>assets/css/home.css" rel="stylesheet" >
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="<?=base_url?>assets/js/bootstrap.min2.js"></script>
       
     </head>
 <body>
