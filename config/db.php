@@ -1,10 +1,7 @@
-<?php 
+<?php
 class Database{
-    public static function connect(){
-        $db = new mysqli("localhost","root","","cardoffice");
-        $db->query("SET NAMES 'UTF8'");
-        return $db;
+   private static $db = new mysqli("localhost","root","toor","cardoffice");
+    public static function getConnection(){
+        return Database::$db;
     }
-
-    
 }
