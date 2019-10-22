@@ -27,7 +27,11 @@ class cardofficeController
           try {
                Database::get()->autocommit(FALSE);
                Database::get()->begin_transaction();
+
+               //FUNCIONES A EJECUTAR EN EL MODELO
                T_Cliente::SendToTrans();
+
+            
                Database::get()->commit();
           }catch (Exception $e) {
                echo "Insertar $e en tabla de errores";
