@@ -28,9 +28,11 @@ class cardofficeController
                Database::get()->autocommit(FALSE);
                Database::get()->begin_transaction();
 
-               //FUNCIONES A EJECUTAR EN EL MODELO
+               //CONJUNTO DE INSTRUCCIONES DE LOS MODELOS A EJECUTAR
                T_Cliente::SendToTrans();
-
+               Usuario_model->Insertar_usuario(10, 'Carlos', 'Baires');
+               Cliente_model->Eliminar_cliente(15);
+               //FIN DEL CONJUNTO DE INSTRUCCIONES DE LOS MODELOS A EJECUTAR
             
                Database::get()->commit();
           }catch (Exception $e) {
