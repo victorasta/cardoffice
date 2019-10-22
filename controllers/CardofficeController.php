@@ -27,18 +27,22 @@ class cardofficeController
           try {
                Database::get()->begin_transaction();
                //Database::get()->query("INSERT INTO cliente(nombre, apellido, telefono) VALUES('Jairo', 'Guzmán', '123456')");
-               echo 'THREAD_ID DEL CONTROLADOR: '.Database::get()->thread_id;
+               echo 'THREAD_ID DEL CONTROLADOR: ' . Database::get()->thread_id;
                T_Cliente::SendToTrans();
                Database::get()->commit();
-          } catch (Exception $e) {
+          }catch (Exception $e) {
                echo "Insertar $e en tabla de errores";
                try {
                     Database::get()->rollback();
                } catch (Exception $e2) {
                     echo $e2;
                }
-          }finally{
-               Database::get()->close();
+          }finally {
+               try {
+                    Database::get()->close();
+               } catch (Exception $e3) {
+                    echo $e3;
+               }
           }
      }
      public function catalogo()
