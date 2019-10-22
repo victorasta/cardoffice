@@ -1,18 +1,18 @@
 <?php  
 
-function SendToTrans($queriesPool) throws Exception{
+function SendToTrans($queriesPool){
     $db = Database::get();
     try{
         $db->beginTransaction();
-        
-        foreach($queriesPool as $query){
-            $db->query($query);
-        }
 
+        foreach($queriesPool as $query){
+            if(!$db->query($query))
+                throw new Exception($db->error);
+        }
         $db->commit();
     }
     catch(Exception $e){
-        $db->query("Insertar $e en tabla de errores")
+        $db->query("Insertar $e en tabla de errores");
         $db->rollback();
     }
 }
