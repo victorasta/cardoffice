@@ -1,6 +1,6 @@
 <?php  
 
-function SendToTrans($queriesPool){
+function SendToTrans($queriesPool) throws Exception{
     $db = Database::get();
     try{
         $db->beginTransaction();
