@@ -41,7 +41,7 @@
                                 <div id="<?=$dato['id']?>" class="panel-collapse collapse">
                                     <div class="panel-body">
                                           <?php $query2 = "SELECT mt.*,pr.operaciones FROM menu_item mt, rol_menu rm , privilegios_rol pr WHERE mt.id_menu_padre=".$dato['id']." AND rm.id_rol =".$id_rol." AND rm.id_menu =".$dato['id']." AND pr.id_rol =".$id_rol." AND rm.id_modulo = pr.id_modulo AND pr.id_rol=".$id_rol;
-                                           $consulta2 = mysqli_query($con,$query2);   
+                                           $consulta2 = Database::get()->query($query2);   
                                            ?> 
                                        <?php if(!(is_null( $consulta2))):?>
                                         <ul class="nav navbar-nav">
