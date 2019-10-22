@@ -1,11 +1,9 @@
 
 <?php
 
-$db=Database::connect();
-
 $id_rol=3;
 $query = "SELECT * FROM rol_menu rm, menu m WHERE rm.id_rol=".$_SESSION['usuario'][0]['id_rol']." AND rm.id_menu =m.id";
-$consulta = mysqli_query($db,$query);
+$consulta = Database::get()->query($query);
 ?>
 
 <!DOCTYPE HTML5>
