@@ -1,6 +1,7 @@
 <?php
 require_once 'models/Cliente.php';
 require_once 'models/usuario.php';
+Database::initialize();
 class usuarioController{
 
     public function index(){
