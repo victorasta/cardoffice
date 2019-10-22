@@ -25,9 +25,8 @@ class cardofficeController
           Database::initialize();
           require_once 'models/transactions/T_Cliente.php';
           try {
+               Database::get()->autocommit(FALSE);
                Database::get()->begin_transaction();
-               //Database::get()->query("INSERT INTO cliente(nombre, apellido, telefono) VALUES('Jairo', 'Guzmán', '123456')");
-               echo 'THREAD_ID DEL CONTROLADOR: ' . Database::get()->thread_id;
                T_Cliente::SendToTrans();
                Database::get()->commit();
           }catch (Exception $e) {
