@@ -1,20 +1,9 @@
 <?php  
-
-function SendToTrans($queriesPool){
+class T_Cliente{
+public static function SendToTrans(){
     $db = Database::get();
-    try{
-        $db->beginTransaction();
-
-        foreach($queriesPool as $query){
+    $query = "INSERT INTO cliente(nombre, apellido, telefono) VALUES('Jairo'2, 'Guzmán', '123456')";
             if(!$db->query($query))
-                throw new Exception($db->error);
-        }
-        $db->commit();
-    }
-    catch(Exception $e){
-        $db->query("Insertar $e en tabla de errores");
-        $db->rollback();
-    }
+         throw new Exception($db->error);
 }
-
-?>
+}
