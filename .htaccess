@@ -8,6 +8,7 @@ RewriteEngine on
 ErrorDocument 404 http://localhost/cardoffice/error/index
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
-RewriteRule ^(.*)/(.*) index.php?controller=$1&action=$2
+RewriteRule ^(.*)$ index.php?data=$1
+
 
 </IfModule>

@@ -74,4 +74,44 @@ class usuario{
          }
       return $resultado;
     }
+
+    public function consultar_items_menu_usuario(){
+       $qry = "SELECT N1.NOMBRE_ITEM, N1.URL_ITEM, N1.ICONO_ITEM, N2.NOMBRE_DEPENDIENTES, N2.URL_DEPENDIENTES, N2.ICONO_DEPENDIENTES
+       FROM items N1
+       INNER JOIN
+       V_PERMISOS PN1
+       ON N1.ID_ITEM = PN1.ID_ITEM
+       LEFT JOIN
+       (
+       SELECT
+       I.DEPENDENCIA_ITEM,
+       GROUP_CONCAT(I.NOMBRE_ITEM ORDER BY I.ID_ITEM SEPARATOR '___') 'NOMBRE_DEPENDIENTES',
+       GROUP_CONCAT(I.URL_ITEM ORDER BY I.ID_ITEM SEPARATOR '___') 'URL_DEPENDIENTES',
+       GROUP_CONCAT(I.ICONO_ITEM ORDER BY I.ID_ITEM SEPARATOR '___') 'ICONO_DEPENDIENTES'
+       FROM items I
+       INNER JOIN V_PERMISOS PN2
+       ON I.ID_ITEM = PN2.ID_ITEM
+       WHERE I.NIVEL_ITEM = 2
+       AND PN2.ID = ?
+       AND (PN2.INSERT_PRIV = 'Y' OR PN2.UPDATE_PRIV = 'Y' OR PN2.DELETE_PRIV = 'Y' OR PN2.SELECT_PRIV = 'Y')
+       GROUP BY I.DEPENDENCIA_ITEM
+       )N2
+       ON N1.ID_ITEM = N2.DEPENDENCIA_ITEM
+       WHERE N1.NIVEL_ITEM = 1
+       AND PN1.ID = ?
+       AND (PN1.INSERT_PRIV = 'Y' OR PN1.UPDATE_PRIV = 'Y' OR PN1.DELETE_PRIV = 'Y' OR PN1.SELECT_PRIV = 'Y')
+       ";
+       $stmt = Database::get()->prepare($qry);
+       $stmt->bind_param("ii", $_SESSION['usuario'], $_SESSION['usuario']);
+       $stmt->execute();
+      $result = $stmt->get_result();
+      while($row = $result->fetch_assoc()){
+         $dependientes = explode('___', $row['NOMBRE_DEPENDIENTES']);
+         echo 'NOMBRE: '.$row['NOMBRE_ITEM'].'<BR>';
+         foreach($dependientes as $d){
+            echo 'Dependiente: '.$d.'<br>';
+         }
+      }
+      $stmt->close();
+    }
 }

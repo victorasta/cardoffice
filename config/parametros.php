@@ -1,4 +1,4 @@
 <?php
 define("base_url","http://localhost/cardoffice/");
-define("controller_default","cardofficeController");
-define("action_default","index");
+define('DEFAULT_CONTROLLER','OficinaController');
+define('DEFAULT_ACTION','index');

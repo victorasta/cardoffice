@@ -1,7 +1,8 @@
 
+
 <div class="row">
     <div class="side-menu">
-       <nav class="navbar navbar-default" role="navigation">
+       <nav class="navbar navbar-default " role="navigation">
            <div class="navbar-header">
                <div class="brand-wrapper">
                     <div class="brand-name-wrapper">
@@ -27,6 +28,7 @@
                     </div>
                 </div>
             </div>
+
            <!-- MENU -->
             <div class="side-menu-container">   
                  <ul class="nav navbar-nav">
@@ -60,6 +62,6 @@
            </div><!-- /.navbar-collapse -->
         </nav> 
     </div>
-     <!-- CONTENDIO DE PAGINA -->
+     <!-- CONTENDIO DE PAGINA 
      <div class="container-fluid">
-        <div class="side-body">
+        <div class="side-body">-->
