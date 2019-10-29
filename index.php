@@ -32,10 +32,10 @@ try {
         if (method_exists($controlador, $action)) {
             $controlador->$action();
         } else {
-            throw new Exception("No se encontró <b>" . $nombre_controlador .'/'. $action . '</b>');
+            throw new Exception("No se encontró <b><i>" . $nombre_controlador .'/'. $action . '</i></b>');
         }
     } else {
-        throw new Exception("(?) No se encontró <b>" . $nombre_controlador . '</b>');
+        throw new Exception("(?) No se encontró <b><i>" . $nombre_controlador . '</i></b>');
     }
 } catch (Exception $e) {
     $error = new errorController($e->getMessage());
