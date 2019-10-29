@@ -1,6 +1,13 @@
 <?php
-class errorController{
+class ErrorController{
+    private $msg;
+    function __construct($msg)
+    {
+        $this->msg = $msg;
+    }
     public function index(){
-        require_once 'views/error404.php';
+        $data['encabezado'] = 'Error';
+        $data['contenido'] = $this->msg;
+        Cargar::Vista('ErrorGeneral', $data);
     }
 }

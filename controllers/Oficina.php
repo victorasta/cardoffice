@@ -1,24 +1,10 @@
 <?php
 
-class OficinaController
+class Oficina
 {
      public function index()
      {
           $this->Home();
-/*           Database::initialize();
-          if ((isset($_SESSION['usuario']) && $_SESSION['usuario'][0]['id_rol'] != 4)) {
-               require_once 'views/layouts/header.php';
-               require_once 'views/layouts/slideBar.php';
-          } else {
-               require_once 'views/layoutsCliente/header.php';
-               require_once 'views/layoutsCliente/navbar.php';
-          }
-          require_once 'views/Publico/home.php';
-          if ((isset($_SESSION['usuario']) && $_SESSION['usuario'][0]['id_rol'] != 4)) {
-               require_once 'views/layouts/footer.php';
-          } else {
-               require_once 'views/layoutsCliente/footer.php';
-          } */
      }
 
      public function prueba_transaccion()
@@ -34,16 +20,16 @@ class OficinaController
                #Usuario_model->Insertar_usuario(10, 'Carlos', 'Baires');
                #Cliente_model->Eliminar_cliente(15);
                //FIN DEL CONJUNTO DE INSTRUCCIONES DE LOS MODELOS A EJECUTAR
-            
+
                Database::get()->commit();
-          }catch (Exception $e) {
-               echo "Hubo un problema. ". $e->getMessage();
+          } catch (Exception $e) {
+               echo "Hubo un problema. " . $e->getMessage();
                try {
                     Database::get()->rollback();
                } catch (Exception $e2) {
                     echo $e2->getMessage();
                }
-          }finally {
+          } finally {
                try {
                     Database::get()->close();
                } catch (Exception $e3) {
@@ -77,8 +63,8 @@ class OficinaController
 
      public function login()
      {
-
-          Database::initialize();
+          Cargar::Vista('login');
+          /*           Database::initialize();
           if ((isset($_SESSION['usuario']) && $_SESSION['usuario'][0]['id_rol'] != 4)) {
                require_once 'views/layouts/header.php';
                require_once 'views/layouts/slideBar.php';
@@ -91,18 +77,18 @@ class OficinaController
                require_once 'views/layouts/footer.php';
           } else {
                require_once 'views/layoutsCliente/footer.php';
-          }
+          } */
      }
 
      public function Home()
      {
-          if(!isset($_SESSION['usuario'])){
-               header('location:'.base_url.'publico');
+          if (!isset($_SESSION['usuario'])) {
+               header('location:' . base_url . 'login');
                exit();
           }
           Database::initialize();
-          require_once('models/Usuario.php');
-          $usuario = new usuario();
+          require_once('models/UsuarioModel.php');
+          $usuario = new UsuarioModel();
           $usuario->consultar_items_menu_usuario();
           /* if ((isset($_SESSION['usuario']) && $_SESSION['usuario'][0]['id_rol'] != 4)) {
                require_once 'views/layouts/header.php';
@@ -126,7 +112,4 @@ class OficinaController
                require_once 'views/layoutsCliente/footer.php';
           } */
      }
-
-     
-
 }
