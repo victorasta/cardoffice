@@ -51,13 +51,19 @@ class UsuarioModel
        AND ( PM1.INSERT_PRIV = 'Y' OR PM1.UPDATE_PRIV = 'Y' OR PM1.DELETE_PRIV = 'Y' OR PM1.SELECT_PRIV = 'Y' ) 
        AND U1.id = ?";
       $stmt = Database::get()->prepare($qry);
-      $id = 1;
-      $stmt->bind_param("ii", $id, $id);
+      $stmt->bind_param("ii", $_SESSION['ID_USUARIO'], $_SESSION['ID_USUARIO']);
       $stmt->execute();
       $result = $stmt->get_result();
       $modulos = array();
       while ($row = $result->fetch_assoc()) {
-         $modulos[] = $row;
+         $modulos[] = array(
+            'NOMBRE_MODULO' => $row['NOMBRE_MODULO'],
+            'URL_MODULO' => $row['URL_MODULO'],
+            'ICONO_MODULO' => $row['ICONO_MODULO'],
+            'NOMBRE_DEPENDIENTES' => is_null($row['NOMBRE_DEPENDIENTES']) ? '' : $row['NOMBRE_DEPENDIENTES'],
+            'URL_DEPENDIENTES' => is_null($row['URL_DEPENDIENTES']) ? '' : $row['URL_DEPENDIENTES'],
+            'ICONO_DEPENDIENTES' => is_null($row['ICONO_DEPENDIENTES']) ? '' : $row['ICONO_DEPENDIENTES']
+         );
       }
       $stmt->close();
       return $modulos;

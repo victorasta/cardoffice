@@ -91,7 +91,6 @@ class Oficina
           $usuario = new UsuarioModel();
           $modulos = $usuario->consultar_items_menu_usuario();
           $data['menu'] = '';
-
           foreach ($modulos as $modulo) {
                $nombre_dependientes = explode('___', $modulo['NOMBRE_DEPENDIENTES']);
                $url_dependientes = explode('___', $modulo['URL_DEPENDIENTES']);
@@ -105,7 +104,11 @@ class Oficina
 				</p>
 			</a>
 			<ul class="nav nav-treeview">';
-			for($i=0; $i < count($nombre_dependientes); $i++){
+               for($i=0;
+               $i < count($nombre_dependientes)
+               && trim($nombre_dependientes[$i]) != ''
+               && trim($url_dependientes[$i]) != ''
+               && trim($icono_dependientes[$i]) != ''; $i++){
 				$data['menu'] .= '<li class="nav-item">
 				<a href="#" class="nav-link">
 					<i class="far fa-circle nav-icon"></i>
@@ -116,9 +119,9 @@ class Oficina
 			$data['menu'] .= '</ul>
                </li>';
                $data['title'] = 'Inicio';
-               Cargar::Vista('templates/header', $data);
-               Cargar::Vista('home', $data);
-               Cargar::Vista('templates/footer', $data);
           }
+          Cargar::Vista('templates/header', $data);
+          Cargar::Vista('home', $data);
+          Cargar::Vista('templates/footer', $data);
      }
 }
