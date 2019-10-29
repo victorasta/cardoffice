@@ -32,7 +32,7 @@ try {
         if (method_exists($controlador, $action)) {
             $controlador->$action();
         } else {
-            throw new Exception("No se encontró " . $action);
+            throw new Exception("No se encontró " . $nombre_controlador .'/'. $action);
         }
     } else {
         throw new Exception("(?) No se encontró " . $nombre_controlador);
