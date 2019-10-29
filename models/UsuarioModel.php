@@ -1,19 +1,19 @@
 <?php
 class UsuarioModel
 {
-   public function login($correo, $password)
+   public function login($correo)
    {
-      $stmt = Database::get()->prepare("SELECT U.correo, U.passwrd
+      $stmt = Database::get()->prepare("SELECT U.id, U.correo, U.passwrd
       FROM usuario U
       INNER JOIN empleado E
       ON u.id_empleado = E.id
       WHERE U.estado = 'activo'
-      AND U.correo = 'admin'");
-      #$stmt->bind_param('i', $correo);
+      AND U.correo = ?");
+      $stmt->bind_param('i', $correo);
       if(!$stmt->execute()){
          return FALSE;
       }
-      return ['id' => '0'];
+      return $stmt->get_result()->fetch_object();
 /*       if ($login && $login->num_rows == 1) {
          $usuario = $login->fetch_object();
          if (password_verify($password, $usuario->passwrd)) {
@@ -30,7 +30,7 @@ class UsuarioModel
             }
          }
       } */
-      return $resultado;
+#      return $resultado;
    }
 
    public function consultar_items_menu_usuario()

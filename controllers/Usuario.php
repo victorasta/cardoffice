@@ -31,38 +31,25 @@ class Usuario
 
     public function login()
     {
-/*         if (!isset($_POST['correo']) || trim($_POST['correo'] == '') || !isset($_POST['correo']) || trim($_POST['correo'] == '')) {
+/*         if (!isset($_POST['correo']) || trim($_POST['correo'] == '') || !isset($_POST['password']) || trim($_POST['password'] == '')) {
             echo json_encode([
                 'error' => 'No debe dejar campos vacíos'
             ]);
             return;
         } */
-        if (isset($_POST)) {
-            $usuario = new UsuarioModel();
-            $resultado = $usuario->login('admin', '12345');
-            if ($resultado === FALSE || !is_object($resultado) ) {
-                echo json_encode([
-                    'error' => 'Usuario o contraseña incorrectos'
-                ]);
-                return;
-            }
-            /*             if ($resultado && is_object($resultado)) {
-                if (($resultado->estado) == 'activo') {
-                    $_SESSION['usuario'][] = array("nombre" => $resultado->nombre, "id_rol" => $resultado->id_rol, "id_persona" => $resultado->persona);
-                    if (($resultado->id_rol) == 4) {
-                        header("Location:" . base_url);
-                    } else {
-                        header('Location:' . base_url . 'cardoffice/home');
-                    }
-                } else if (($resultado->estado) == "inactivo") {
-                    header('Location:' . base_url . 'cardoffice/login');
-                } else {
-                    header('Location:' . base_url . 'cardoffice/login');
-                }
-            } else {
-                header('Location:' . base_url . 'cardoffice/login');
-            } */
+        $usuario = new UsuarioModel();
+        $resultado = $usuario->login('admin', '12345');
+        if ($resultado === FALSE || !is_object($resultado) || !password_verify('12345a', $resultado->passwrd)) {
+            echo json_encode([
+                'error' => 'Usuario o contraseña incorrectos'
+            ]);
+            return;
         }
+        $_SESSION['ID_USUARIO'] = $resultado->id;
+        Database::get()->close();
+        echo json_encode([
+            'error' => NULL
+        ]);
     }
 
     public function close()
