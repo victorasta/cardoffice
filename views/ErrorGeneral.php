@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Código de error</title>
+<title>Error
+</title>
 <style type="text/css">
 
 ::selection { background-color: #E13300; color: white; }
@@ -21,7 +22,7 @@ a {
 	font-weight: normal;
 }
 
-h1 {
+h1, h2 {
 	color: #444;
 	background-color: transparent;
 	border-bottom: 1px solid #D0D0D0;
@@ -56,7 +57,7 @@ p {
 <body>
 	<div id="container">
 		<h1><?=$encabezado?></h1>
-		<p><?=$contenido?></p>
+		<h2><?=$contenido?></h2>
 	</div>
 </body>
 </html>
