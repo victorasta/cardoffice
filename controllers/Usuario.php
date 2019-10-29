@@ -31,15 +31,15 @@ class Usuario
 
     public function login()
     {
-/*if (!isset($_POST['correo']) || trim($_POST['correo'] == '') || !isset($_POST['password']) || trim($_POST['password'] == '')) {
+        if (!isset($_POST['correo']) || trim($_POST['correo'] == '') || !isset($_POST['password']) || trim($_POST['password'] == '')) {
             echo json_encode([
                 'error' => 'No debe dejar campos vacíos'
             ]);
             return;
-        } */
+        }
         $usuario = new UsuarioModel();
-        $resultado = $usuario->login('admin', '12345');
-        if ($resultado === FALSE || !is_object($resultado) || !password_verify('12345a', $resultado->passwrd)) {
+        $resultado = $usuario->login($_POST['correo'], $_POST['password']);
+        if ($resultado === FALSE || !is_object($resultado) || !password_verify($_POST['password'], $resultado->passwrd)) {
             echo json_encode([
                 'error' => 'Usuario o contraseña incorrectos'
             ]);

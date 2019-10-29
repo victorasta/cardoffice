@@ -82,7 +82,7 @@ class Oficina
 
      public function Home()
      {
-          if (!isset($_SESSION['usuario'])) {
+          if (!isset($_SESSION['ID_USUARIO'])) {
                header('location:' . base_url . 'login');
                exit();
           }

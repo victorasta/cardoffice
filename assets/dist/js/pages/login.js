@@ -6,6 +6,7 @@ const Toast = Swal.mixin({
 });
 $(document).ready(function() {
     $("#send").click(function(evt) {
+
         $("#fm-login").validetta({
             display: 'bubble',
             bubblePosition: 'bottom',
@@ -13,10 +14,10 @@ $(document).ready(function() {
                 e.preventDefault();
                 ajax({
                     data: {
-                        'user': $("#user").val(),
+                        'correo': $("#correo").val(),
                         'password': $("#password").val()
                     },
-                    url: url + '/usuario/iniciar_sesion',
+                    url: url + 'usuario/login',
                     prev: function() {
                         $("#send-icon").removeClass('fa-arrow-circle-right');
                         $("#send-icon").addClass('spinner-border spinner-border-sm');
@@ -26,14 +27,14 @@ $(document).ready(function() {
                         $("#send-icon").addClass('fa-arrow-circle-right');
                     },
                     success: function(json) {
-                        if (json.err) {
+                        if (json.error) {
                             Toast.fire({
                                 type: 'error',
-                                title: json.err
+                                title: json.error
                             });
                             $('#password').val('');
                         } else {
-                            location.href = 'http://localhost/asoccmaj/'
+                            location.href = url;
                         }
                     },
                     error: function(xhr, status) {
@@ -42,6 +43,9 @@ $(document).ready(function() {
                 })
             },
             onError: function(e) {}
-        }, { required: 'No debe quedar vacío' });
+        }, {
+            required: 'No debe quedar vacío',
+            email: 'Debe proporcionar una dirección de correo electrónico válida'
+        });
     });
 })
