@@ -89,27 +89,36 @@ class Oficina
           Database::initialize();
           require_once('models/UsuarioModel.php');
           $usuario = new UsuarioModel();
-          $usuario->consultar_items_menu_usuario();
-          /* if ((isset($_SESSION['usuario']) && $_SESSION['usuario'][0]['id_rol'] != 4)) {
-               require_once 'views/layouts/header.php';
-               require_once 'views/layouts/slideBarNew.php';
-          } else {
-               require_once 'views/layoutsCliente/header.php';
-               require_once 'views/layoutsCliente/navbar.php';
+          $modulos = $usuario->consultar_items_menu_usuario();
+          $data['menu'] = '';
+
+          foreach ($modulos as $modulo) {
+               $nombre_dependientes = explode('___', $modulo['NOMBRE_DEPENDIENTES']);
+               $url_dependientes = explode('___', $modulo['URL_DEPENDIENTES']);
+               $icono_dependientes = explode('___', $modulo['ICONO_DEPENDIENTES']);
+               $data['menu'] .= '<li class="nav-item has-treeview">
+			<a href="'.$modulo['URL_MODULO'].'" class="nav-link">
+				<i class="'.$modulo['ICONO_MODULO'].'"></i>
+				<p>
+					'.$modulo['NOMBRE_MODULO'].'
+					<i class="fas fa-angle-left right"></i>
+				</p>
+			</a>
+			<ul class="nav nav-treeview">';
+			for($i=0; $i < count($nombre_dependientes); $i++){
+				$data['menu'] .= '<li class="nav-item">
+				<a href="#" class="nav-link">
+					<i class="far fa-circle nav-icon"></i>
+					<p>'.$nombre_dependientes[$i].'</p>
+				</a>
+			</li>';
+			}
+			$data['menu'] .= '</ul>
+               </li>';
+               $data['title'] = 'Inicio';
+               Cargar::Vista('templates/header', $data);
+               Cargar::Vista('home', $data);
+               Cargar::Vista('templates/footer', $data);
           }
-          if (isset($_SESSION['usuario'])) {
-               if ($_SESSION['usuario'][0]['id_rol'] == 4) {
-                    require_once 'views/error404.php';
-               } else {
-                    #require_once 'views/Producto/listaProducto.php';
-               }
-          } else {
-               require_once 'views/error404.php';
-          }
-          if ((isset($_SESSION['usuario']) && $_SESSION['usuario'][0]['id_rol'] != 4)) {
-               require_once 'views/layouts/footer.php';
-          } else {
-               require_once 'views/layoutsCliente/footer.php';
-          } */
      }
 }

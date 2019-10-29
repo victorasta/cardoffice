@@ -9,28 +9,11 @@ class UsuarioModel
       ON u.id_empleado = E.id
       WHERE U.estado = 'activo'
       AND U.correo = ?");
-      $stmt->bind_param('i', $correo);
-      if(!$stmt->execute()){
+      $stmt->bind_param('s', $correo);
+      if (!$stmt->execute()) {
          return FALSE;
       }
       return $stmt->get_result()->fetch_object();
-/*       if ($login && $login->num_rows == 1) {
-         $usuario = $login->fetch_object();
-         if (password_verify($password, $usuario->passwrd)) {
-            if (is_null($usuario->id_empleado) && !is_null($usuario->id_cliente)) {
-               $sql = "SELECT cl.id as persona ,cl.nombre,cl.apellido ,us.correo,us.id_rol,us.estado, us.id as id_usuario FROM cliente cl,usuario us WHERE us.id_cliente = cl.id AND cl.id ='" . $usuario->id_cliente . "'";
-               $login = Database::get()->query($sql);
-               $usuario = $login->fetch_object();
-               $resultado = $usuario;
-            } else {
-               $sql = "SELECT em.nombre , us.id_rol , us.estado, em.id as persona FROM empleado em , usuario us WHERE em.id = us.id_empleado and us.id_empleado ='" . $usuario->id_empleado . "'";
-               $login = Database::get()->query($sql);
-               $usuario = $login->fetch_object();
-               $resultado = $usuario;
-            }
-         }
-      } */
-#      return $resultado;
    }
 
    public function consultar_items_menu_usuario()
@@ -72,13 +55,11 @@ class UsuarioModel
       $stmt->bind_param("ii", $id, $id);
       $stmt->execute();
       $result = $stmt->get_result();
+      $modulos = array();
       while ($row = $result->fetch_assoc()) {
-         $dependientes = explode('___', $row['NOMBRE_DEPENDIENTES']);
-         echo 'NOMBRE: ' . $row['NOMBRE_MODULO'] . '<BR>';
-         foreach ($dependientes as $d) {
-            echo 'Dependiente: ' . $d . '<br>';
-         }
+         $modulos[] = $row;
       }
       $stmt->close();
+      return $modulos;
    }
 }
