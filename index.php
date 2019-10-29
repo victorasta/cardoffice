@@ -1,4 +1,4 @@
-<?php
+<?php 
 include 'controllers/ErrorController.php'; #El controlador de errores es imprescindible
 try {
     ob_start();
