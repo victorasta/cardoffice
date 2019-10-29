@@ -24,7 +24,7 @@ try {
         $action = DEFAULT_ACTION;
     }
     if (!file_exists('controllers/' . $nombre_controlador . '.php'))
-        throw new Exception("No se encontró " . $nombre_controlador);
+        throw new Exception("No se encontró " . $nombre_controlador .'/'. $action);
 
     include_once 'controllers/' . $nombre_controlador . '.php';
     if (class_exists($nombre_controlador)) {
