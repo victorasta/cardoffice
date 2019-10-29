@@ -24,7 +24,7 @@ try {
         $action = DEFAULT_ACTION;
     }
     if (!file_exists('controllers/' . $nombre_controlador . '.php'))
-        throw new Exception("No se encontró <b><i>" . $nombre_controlador .'/'. $action . '</i></b>');
+        throw new Exception("No se encontró <b><i>" . $nombre_controlador .' / '. $action . '</i></b>');
 
     include_once 'controllers/' . $nombre_controlador . '.php';
     if (class_exists($nombre_controlador)) {
@@ -32,7 +32,7 @@ try {
         if (method_exists($controlador, $action)) {
             $controlador->$action();
         } else {
-            throw new Exception("No se encontró <b><i>" . $nombre_controlador .'/'. $action . '</i></b>');
+            throw new Exception("No se encontró <b><i>" . $nombre_controlador .' / '. $action . '</i></b>');
         }
     } else {
         throw new Exception("(?) No se encontró <b><i>" . $nombre_controlador . '</i></b>');
