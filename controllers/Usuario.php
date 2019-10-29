@@ -31,7 +31,7 @@ class Usuario
 
     public function login()
     {
-/*         if (!isset($_POST['correo']) || trim($_POST['correo'] == '') || !isset($_POST['password']) || trim($_POST['password'] == '')) {
+/*if (!isset($_POST['correo']) || trim($_POST['correo'] == '') || !isset($_POST['password']) || trim($_POST['password'] == '')) {
             echo json_encode([
                 'error' => 'No debe dejar campos vacíos'
             ]);
@@ -46,7 +46,7 @@ class Usuario
             return;
         }
         $_SESSION['ID_USUARIO'] = $resultado->id;
-        Database::get()->close();
+        Database::close();
         echo json_encode([
             'error' => NULL
         ]);

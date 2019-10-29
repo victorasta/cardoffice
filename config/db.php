@@ -10,4 +10,8 @@ class Database{
     public static function get(){
         return Database::$db;
     }
+    public static function close(){
+        if(Database::$db instanceof mysqli)
+            Database::$db->close();
+    }
 }
