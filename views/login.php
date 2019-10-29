@@ -66,7 +66,11 @@
     </div>
   </div>
   <!-- /.login-box -->
-  <script>
+
+</body>
+
+</html>
+<script>
   const url = '<?= base_url ?>';
 </script>
 <script src="<?= base_url ?>assets/plugins/jquery/jquery.min.js"></script>
@@ -81,7 +85,4 @@
 <script src="<?= base_url ?>assets/plugins/validetta/localization/validettaLang-es-ES.js"></script>
 <script src="<?= base_url ?>assets/dist/js/main.js"></script>
 <script src="<?= base_url ?>assets/dist/js/pages/login.js"></script>
-</body>
-
-</html>
 <!-- jQuery -->
