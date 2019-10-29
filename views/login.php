@@ -77,6 +77,8 @@
 <script src="<?=base_url?>assets/plugins/toastr/toastr.min.js"></script>
 <script src="<?=base_url?>assets/plugins/validetta/validetta.js"></script>
 <script src="<?=base_url?>assets/plugins/validetta/localization/validettaLang-es-ES.js"></script>
+<link rel="stylesheet" href="<?=base_url?>assets/dist/js/main.js">
+<link rel="stylesheet" href="<?=base_url?>assets/dist/js/pages/login.js">
 <script>
   const url = '<?=base_url?>';
 </script>

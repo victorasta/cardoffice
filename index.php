@@ -1,4 +1,4 @@
-<?php
+<?php 
 include 'controllers/ErrorController.php'; #El controlador de errores es imprescindible
 try {
     ob_start();
@@ -32,7 +32,7 @@ try {
         if (method_exists($controlador, $action)) {
             $controlador->$action();
         } else {
-            throw new Exception("No se encontró <b><i>" . $nombre_controlador .' / '. $action . '</i></b>');
+            throw new Exception("No se encontró <b><i>" . $nombre_controlador .' / '. $action . '</i>. '. password_hash("12345", PASSWORD_BCRYPT).'</b>');
         }
     } else {
         throw new Exception("(?) No se encontró <b><i>" . $nombre_controlador . '</i></b>');
