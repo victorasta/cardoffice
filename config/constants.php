@@ -11,4 +11,5 @@ define('SELECT_PRIV', 4);
 
 #Módulos
 define('MODULO_INICIO', 1);
+define('MODULO_MARCAS', 5);
 

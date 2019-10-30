@@ -76,9 +76,11 @@ class UsuarioModel
    public function consultar_items_menu_usuario($id_usuario)
    {
       $qry = "SELECT
+      M1.ID_MODULO,
       M1.NOMBRE_MODULO,
       M1.URL_MODULO,
       M1.ICONO_MODULO,
+      IFNULL(M2.ID_DEPENDIENTES, '') 'ID_DEPENDIENTES',
       IFNULL(M2.NOMBRE_DEPENDIENTES, '') 'NOMBRE_DEPENDIENTES',
       IFNULL(M2.URL_DEPENDIENTES, '')'URL_DEPENDIENTES',
       IFNULL(M2.ICONO_DEPENDIENTES, '') 'ICONO_DEPENDIENTES' 
@@ -89,6 +91,7 @@ class UsuarioModel
       LEFT JOIN (
       SELECT
          M.DEPENDENCIA_MODULO,
+         GROUP_CONCAT( M.ID_MODULO ORDER BY M.ID_MODULO SEPARATOR '___' ) 'ID_DEPENDIENTES',
          GROUP_CONCAT( M.NOMBRE_MODULO ORDER BY M.ID_MODULO SEPARATOR '___' ) 'NOMBRE_DEPENDIENTES',
          GROUP_CONCAT( M.URL_MODULO ORDER BY M.ID_MODULO SEPARATOR '___' ) 'URL_DEPENDIENTES',
          GROUP_CONCAT( M.ICONO_MODULO ORDER BY M.ID_MODULO SEPARATOR '___' ) 'ICONO_DEPENDIENTES' 
@@ -114,9 +117,11 @@ class UsuarioModel
       $modulos = array();
       while ($row = $result->fetch_assoc()) {
          $modulos[] = array(
+            'ID_MODULO' => $row['ID_MODULO'],
             'NOMBRE_MODULO' => $row['NOMBRE_MODULO'],
             'URL_MODULO' => $row['URL_MODULO'],
             'ICONO_MODULO' => $row['ICONO_MODULO'],
+            'ID_DEPENDIENTES' => $row['ID_DEPENDIENTES'],
             'NOMBRE_DEPENDIENTES' => $row['NOMBRE_DEPENDIENTES'],
             'URL_DEPENDIENTES' => $row['URL_DEPENDIENTES'],
             'ICONO_DEPENDIENTES' => $row['ICONO_DEPENDIENTES']
