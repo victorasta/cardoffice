@@ -8,6 +8,8 @@ class Cargar{
     }
     public static function Modelo($nombre_modelo){
         include_once('models/'.$nombre_modelo.'Model.php');
-        
+    }
+    public static function Helper($nombre_helper){
+        include_once('helpers/'.$nombre_helper.'Helper.php');
     }
 }

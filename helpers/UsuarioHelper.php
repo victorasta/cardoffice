@@ -1,0 +1,76 @@
+<?php
+class UsuarioHelper{
+
+	public function verificar_sesion($id_modulo, $priv = FALSE, $ret = FALSE)
+	{
+        if(!isset($_SESSION['ID_USUARIO']) || trim($_SESSION['ID_USUARIO']) == ''){
+            if($ret == FALSE){
+                header('Location: '.base_url.'/login');
+                exit();
+            }
+            else{
+                return FALSE;
+            }
+        }
+        Cargar::Modelo('Usuario');
+        $usuariomodel = new UsuarioModel();
+		if ($usuariomodel->consultar_usuario($_SESSION['ID_USUARIO'], $id_modulo, $priv) === FALSE) {
+			if($ret == FALSE){
+                throw new Exception("Acceso denegado");
+			}
+			else{
+				return FALSE;
+			}
+		}
+		return TRUE;
+	}
+	public function consultar_items_menu_usuario(){
+        Cargar::Modelo("Usuario");
+        $usuariomodel = new UsuarioModel();
+		$modulos = $usuariomodel->consultar_items_menu_usuario($_SESSION['ID_USUARIO']);
+		$menu = '';
+        foreach ($modulos as $modulo) {
+            $nombre_dependientes = explode('___', $modulo['NOMBRE_DEPENDIENTES']);
+            $url_dependientes = explode('___', $modulo['URL_DEPENDIENTES']);
+            $icono_dependientes = explode('___', $modulo['ICONO_DEPENDIENTES']);
+            $menu .= '<li class="nav-item '.($modulo['URL_MODULO'] == '#' ? 'has-treeview' : '').'">
+         <a href="'.base_url.$modulo['URL_MODULO'].'" class="nav-link">
+             <i class="'.$modulo['ICONO_MODULO'].'"></i>
+             <p>
+                 '.$modulo['NOMBRE_MODULO'].''.($modulo['URL_MODULO'] == '#' ? '<i class="fas fa-angle-left right"></i>' : '').'
+             </p>
+         </a>';
+            if($modulo['URL_MODULO'] == '#'){
+                 $menu .= '<ul class="nav nav-treeview">';
+                 for($i=0;
+                 $i < count($nombre_dependientes)
+                 && trim($nombre_dependientes[$i]) != ''
+                 && trim($url_dependientes[$i]) != ''
+                 && trim($icono_dependientes[$i]) != ''; $i++){
+                      $menu .= '<li class="nav-item">
+                      <a href="'.base_url.$url_dependientes[$i].'" class="nav-link">
+                           <i class="far fa-circle nav-icon"></i>
+                           <p>'.$nombre_dependientes[$i].'</p>
+                      </a>
+                 </li>';
+                 }
+                 $menu .= '</ul>';
+            }
+            $menu .= '</li>';
+            
+       }
+		return $menu;
+	}
+/* 	function consultar_informacion_usuario(){
+		$CI = &get_instance();
+		$CI->load->model('Usuario_model');
+		$informacion_usuario = $CI->Usuario_model->consultar_informacion_usuario($CI->session->userdata('ID_USUARIO'));
+		if($informacion_usuario == FALSE)
+			return array('nombre' => '', 'rol' => '');
+		else
+			return array('nombre' => html_escape($informacion_usuario->NOMBRES_EMPLEADO. ' '. $informacion_usuario->APELLIDOS_EMPLEADO)
+			,'rol' => html_escape($informacion_usuario->NOMBRE_ROL));
+		}
+	} */
+
+}

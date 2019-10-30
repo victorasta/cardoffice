@@ -38,7 +38,7 @@ class Usuario
             return;
         }
         $usuario = new UsuarioModel();
-        $resultado = $usuario->login($_POST['correo'], $_POST['password']);
+        $resultado = $usuario->consultar_usuario($_POST['correo']);
         if ($resultado === FALSE || !is_object($resultado) || !password_verify($_POST['password'], $resultado->passwrd)) {
             echo json_encode([
                 'error' => 'Usuario o contraseña incorrectos'

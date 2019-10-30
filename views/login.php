@@ -32,7 +32,7 @@
         <p class="login-box-msg">Inicie sesión para acceder</p>
         <form action="#" method="POST" id="fm-login">
           <div class="input-group mb-3">
-            <input type="email" id="correo" name="correo" class="form-control" placeholder="Usuario" data-validetta="required,email" data-vd-message-error="Debe proporcionar una dirección de correo electrónico válida" autocomplete="off">
+            <input type="text" id="correo" name="correo" class="form-control" placeholder="Usuario" data-validetta="required,email" data-vd-message-error="Debe proporcionar una dirección de correo electrónico válida" autocomplete="off">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
