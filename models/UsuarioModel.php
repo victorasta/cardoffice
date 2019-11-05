@@ -55,22 +55,26 @@ class UsuarioModel
          return FALSE;
       return $result->fetch_object();
    }
-   public function consultar_informacion_usuario()
+   public function consultar_informacion_usuario($id_usuario)
    {
-      if (!isset($_SESSION['ID_USUARIO']) || trim($_SESSION['ID_USUARIO']) == '') {
-         return FALSE;
-      }
-      $stmt = Database::get()->prepare("SELECT U.id, E.nombre, E.apellido, 
+      $stmt = Database::get()->prepare("SELECT U.id, E.nombre, E.apellido, R.NOMBRE_ROL
       FROM usuario U
       INNER JOIN empleado E
-      ON u.id_empleado = E.id
+      ON U.id_empleado = E.id
+      INNER JOIN rol R
+      ON U.id_rol = R.ID_ROL
       WHERE U.estado = 'activo'
       AND U.id = ?");
-      $stmt->bind_param('i', $_SESSION['ID_USUARIO']);
+      $stmt->bind_param('i', $id_usuario);
       if (!$stmt->execute()) {
          return FALSE;
       }
-      return $stmt->get_result()->fetch_object();
+      $result = $stmt->get_result();
+      $informacion_usuario = $result->num_rows == 0 || $result->num_rows > 1
+         ? FALSE
+         : $result->fetch_object();
+      $result->close();
+      return $informacion_usuario;
    }
 
    public function consultar_items_menu_usuario($id_usuario)
@@ -129,5 +133,26 @@ class UsuarioModel
       }
       $stmt->close();
       return $modulos;
+   }
+
+   public function consultar_permisos_usuario($id_usuario, $id_modulo)
+   {
+      $stmt = Database::get()->prepare("SELECT P.INSERT_PRIV, P.UPDATE_PRIV, P.DELETE_PRIV, P.SELECT_PRIV
+      FROM usuario U
+      INNER JOIN v_permisos P
+      ON U.id_rol = P.ID_ROL
+      WHERE
+      U.id = ?
+      AND P.ID_MODULO = ?");
+      $stmt->bind_param('ii', $id_usuario, $id_modulo);
+      if (!$stmt->execute()) {
+         return FALSE;
+      }
+      $result = $stmt->get_result();
+      $permisos = $result->num_rows == 0 || $result->num_rows > 1
+         ? FALSE
+         : $result->fetch_object();
+      $result->close();
+      return $permisos;
    }
 }

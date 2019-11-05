@@ -1,12 +1,6 @@
-const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 5000
-});
 $(document).ready(function() {
     $("#send").click(function(evt) {
-
+        $("#send").off('click');
         $("#fm-login").validetta({
             display: 'bubble',
             bubblePosition: 'bottom',
@@ -22,10 +16,6 @@ $(document).ready(function() {
                         $("#send-icon").removeClass('fa-arrow-circle-right');
                         $("#send-icon").addClass('spinner-border spinner-border-sm');
                     },
-                    complete: function() {
-                        $("#send-icon").removeClass('spinner-border spinner-border-sm');
-                        $("#send-icon").addClass('fa-arrow-circle-right');
-                    },
                     success: function(json) {
                         if (json.error) {
                             Toast.fire({
@@ -39,7 +29,11 @@ $(document).ready(function() {
                     },
                     error: function(xhr, status) {
                         alert(xhr.responseText);
-                    }
+                    },
+                    complete: function() {
+                        $("#send-icon").removeClass('spinner-border spinner-border-sm');
+                        $("#send-icon").addClass('fa-arrow-circle-right');
+                    },
                 })
             },
             onError: function(e) {}

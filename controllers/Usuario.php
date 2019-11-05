@@ -52,7 +52,7 @@ class Usuario
         ]);
     }
 
-    public function close()
+    public function logout()
     {
         session_destroy();
         header("Location:" . base_url);

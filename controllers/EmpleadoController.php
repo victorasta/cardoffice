@@ -11,8 +11,6 @@ class empleadoController{
 
     public function destroy(){  
     }
-
-
     public function newEmpleado()
      {
           Database::initialize();

@@ -25,5 +25,6 @@ class Producto{
          Cargar::Vista('templates/header', $data);
          Cargar::Vista('producto/marcas', $data);
          Cargar::Vista('templates/footer', $data);
+         Database::close();
     }
 }

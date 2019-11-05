@@ -71,7 +71,9 @@ class Oficina
           $usuario_helper = new UsuarioHelper();
           $usuario_helper->verificar_sesion(MODULO_INICIO, SELECT_PRIV);     
           $data['menu'] = $usuario_helper->consultar_items_menu_usuario(MODULO_INICIO);
+          $data['usuario'] = $usuario_helper->consultar_informacion_usuario();
           $data['title'] = 'Inicio';
+          $data['scripts'] = array();
           Cargar::Vista('templates/header', $data);
           Cargar::Vista('home', $data);
           Cargar::Vista('templates/footer', $data);

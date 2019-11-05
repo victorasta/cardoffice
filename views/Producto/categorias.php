@@ -5,12 +5,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Administración de marcas</h1>
+                            <h1>Administración de categorías</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item">CardOffice</li>
-                                <li class="breadcrumb-item active">Marcas</li>
+                                <li class="breadcrumb-item active">Categorías</li>
                             </ol>
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                     <!-- Default box -->
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Marcas</h3>
+                            <h3 class="card-title">Categorías</h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -38,26 +38,26 @@
                                 <div class="col-md-6">
                                     <div class="card card-navy">
                                         <div class="card-header">
-                                            <h3 class="card-title">Datos generales de la marca</h3>
+                                            <h3 class="card-title">Datos generales de la categoría</h3>
                                         </div>
                                         <!-- /.card-header -->
                                         <!-- form start -->
-                                        <form role="form" method="post" action="" id="fm-marca">
+                                        <form role="form" method="post" action="" id="fm-categoria">
                                             <div class="card-body">
-                                                <input type="hidden" id="marca_id_marca">
+                                                <input type="hidden" id="categoria_id_categoria">
                                                 <div class="form-group">
-                                                    <label for="marca_nombre_marca">Nombre de la marca <span class="asterisk" title="Campo requerido">*</span></label>
-                                                    <input type="text" class="form-control" id="marca_nombre_marca" name="marca_nombre_marca" placeholder="Ingrese el nombre de la marca" data-validetta="required" autocomplete="off">
+                                                    <label for="categoria_nombre_categoria">Nombre de la categoría <span class="asterisk" title="Campo requerido">*</span></label>
+                                                    <input type="text" class="form-control" id="categoria_nombre_categoria" name="categoria_nombre_categoria" placeholder="Ingrese el nombre de la categoría" data-validetta="required" autocomplete="off">
                                                 </div>
                                                 <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                                                    <input type="checkbox" class="custom-control-input" id="marca_estado_marca">
-                                                    <label class="custom-control-label" for="marca_estado_marca">Marca habilitada</label>
+                                                    <input type="checkbox" class="custom-control-input" id="categoria_estado_categoria">
+                                                    <label class="custom-control-label" for="categoria_estado_categoria">Categoría habilitada</label>
                                                 </div>
                                             </div>
                                             <!-- /.card-body -->
 
                                             <div class="card-footer">
-                                                <button type="submit" class="btn btn-outline-primary" id="guardar_marca"><i id="guardar-marca-icon" class="fas fa-save"></i> Guardar</button>
+                                                <button type="submit" class="btn btn-outline-primary" id="guardar_categoria"><i id="guardar-categoria-icon" class="fas fa-save"></i> Guardar</button>
                                                 <button type="reset" class="btn btn-outline-secondary" id="limpiar"><i class="fas fa-trash"></i> Limpiar</button>
                                             </div>
                                         </form>
@@ -66,15 +66,15 @@
                                 <div class="col-md-6">
                                     <div class="card card-navy">
                                         <div class="card-header">
-                                            <h3 class="card-title">Marcas registradas</h3>
+                                            <h3 class="card-title">Categorias registradas</h3>
                                             <div class="card-tools">
-                                                <button class="btn btn-tool btn-actualizar-tabla-marcas"><span title="Actualizar tabla"><i class="btn-actualizar-tabla-marcas-icon fas fa-redo-alt"></i></span></button>
+                                                <button class="btn btn-tool btn-actualizar-tabla-categorias"><span title="Actualizar tabla"><i class="btn-actualizar-tabla-categorias-icon fas fa-redo-alt"></i></span></button>
                                             </div>
                                         </div>
                                         <!-- /.card-header -->
                                         <!-- form start -->
                                         <div class="card-body">
-                                            <table id="tabla_marcas" class="table table-bordered table-hover">
+                                            <table id="tabla_categorias" class="table table-bordered table-hover">
                                                 <thead>
                                                     <tr>
                                                         <th>Nombre</th>
