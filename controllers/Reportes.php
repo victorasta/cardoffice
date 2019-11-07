@@ -1,5 +1,5 @@
 <?php
-class Reportes
+class Reportes extends Controller
 {
     function __construct()
     {
@@ -30,12 +30,10 @@ class Reportes
             ]);
             return;
         }
-        Cargar::Modelo('Reportes');
-        Cargar::Modelo('Usuario');
-        $reportesModel = new ReportesModel();
-        $roles = $reportesModel->consultar_roles();
-        $usuarioModel = new UsuarioModel();
-        $permisos = $usuarioModel->consultar_permisos_usuario($_SESSION['ID_USUARIO'], MODULO_REP_ROLES);
+        $this->cargar_modelo('Reportes');
+        $this->cargar_modelo('Usuario');
+        $roles = $this->ReportesModel->consultar_roles();
+        $permisos = $this->UsuarioModel->consultar_permisos_usuario($_SESSION['ID_USUARIO'], MODULO_REP_ROLES);
         Database::close();
         echo json_encode([
             'roles' => $roles,
@@ -98,9 +96,8 @@ class Reportes
             ]);
             return;
         }
-        Cargar::Modelo('Marca');
-        $marcaModel = new MarcaModel();
-        $marca = $marcaModel->consultar_marca($_POST['id_marca']);
+        $this->cargar_modelo('Marca');
+        $marca = $this->MarcaModel->consultar_marca($_POST['id_marca']);
         Database::close();
         echo json_encode([
             'ID_MARCA' => $marca->ID_MARCA,
