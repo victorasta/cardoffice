@@ -43,40 +43,40 @@ class Reportes extends Controller
 
     public function exportar_tabla_pdf()
     {
-        if (!isset($_POST['data'])) {
-            echo json_encode([
-                'error' => 'No data'
-            ]);
-            return;
-        }
-        $error = NULL;
-        try {
-            $tabla = '<table>';
+        // if (!isset($_POST['data'])) {
+        //     echo json_encode([
+        //         'error' => 'No data'
+        //     ]);
+        //     return;
+        // }
+        // $error = NULL;
+        // try {
+        //     $tabla = '<table>';
             
-            $tabla .= '</table>';
-        } catch (Exception $e) {
-            $error = $e->getMessage();
+        //     $tabla .= '</table>';
+        // } catch (Exception $e) {
+        //     $error = $e->getMessage();
             
-        } finally {
+        // } finally {
             
-            echo json_encode([
-                'error' => $error
-            ]);
-        }
+        //     echo json_encode([
+        //         'error' => $error
+        //     ]);
+        // }
         // $tabla = '<table>';
         // $tabla .= strval($_POST['tabla']);
         // $tabla .= '</table>';
         
         // #$mpdf = new \Mpdf\Mpdf();
-        // $html='<p><span>First Name:</span>';
+        $html='<p><span>EJEMPLO</span>';
 
-        // // Create an instance of the class:
-        // $mpdf = new \Mpdf\Mpdf();
+        // Create an instance of the class:
+        $mpdf = new \Mpdf\Mpdf();
 
-        // // Write some HTML code:
-        // $mpdf->WriteHTML($html);
-        // // Output a PDF file directly to the browser
-        // $mpdf->Output();
+        // Write some HTML code:
+        $mpdf->WriteHTML($html);
+        // Output a PDF file directly to the browser
+        $mpdf->Output();
         
     }
 
