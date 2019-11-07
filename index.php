@@ -6,6 +6,7 @@ try {
     #require_once 'autoload.php';
     require_once 'config/db.php';
     require_once 'config/constants.php';
+    require_once 'config/Controller.php';
     require_once 'config/Cargar.php';
     if (isset($_GET['data']) && $_GET['data'] != '') {
         $data = explode('/', $_GET['data']);

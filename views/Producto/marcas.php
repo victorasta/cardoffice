@@ -74,9 +74,10 @@
                                         <!-- /.card-header -->
                                         <!-- form start -->
                                         <div class="card-body">
-                                            <table id="tabla_marcas" class="table table-bordered table-hover">
+                                            <table id="tabla_marcas" class="table table-bordered table-hover text-center">
                                                 <thead>
                                                     <tr>
+                                                        <th>#</th>
                                                         <th>Nombre</th>
                                                         <th>Estado</th>
                                                         <th>Acciones</th>

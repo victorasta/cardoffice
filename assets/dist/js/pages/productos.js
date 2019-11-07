@@ -76,45 +76,25 @@ $(document).ready(function() {
     });
     actualizar_tabla_categorias();
 })
-$("#guardar_categoria").click(function(evt) {
-    $("#guardar_categoria").off('click');
-    $("#fm-categoria").validetta({
+$("#producto_img_producto").on('change', function() {
+    if (this.files.length < 1 || this.files.length > 1 ||
+        (this.files[0].type != 'image/jpeg' && this.files[0].type != 'image/jpg' && this.files[0].type != 'image/png')) {
+        Toast.fire({ type: 'error', title: `Debe proporcionar una imagen. Formatos admitidos: .JPG, .JPEG, .PNG ` });
+        $(this).val('');
+        return false;
+    }
+});
+$("#guardar_producto").click(function(evt) {
+    $("#guardar_producto").off('click');
+    $("#fm-producto").validetta({
         display: 'bubble',
         bubblePosition: 'bottom',
         onValid: function(e) {
             e.preventDefault();
-            ajax({
-                data: {
-                    'id_categoria': $("#categoria_id_categoria").val(),
-                    'nombre_categoria': $("#categoria_nombre_categoria").val(),
-                    'estado_categoria': $("#categoria_estado_categoria").prop('checked') ? 'A' : 'I'
-                },
-                url: url + 'categoria/guardar_categoria',
-                prev: function() {
-                    $("#guardar_categoria").prop('disabled', 'disabled');
-                    $("#guardar-categoria-icon").removeClass('fa-save');
-                    $("#guardar-categoria-icon").addClass('spinner-border spinner-border-sm');
-                },
-                success: function(json) {
-                    var result;
-                    if (json.error) {
-                        result = { type: 'error', title: `No se pudo guardar la categoría. ${json.error}` };
-                    } else {
-                        result = { type: 'success', title: `Categoría guardada correctamente` };
-                        $("#fm-categoria").trigger('reset');
-                        actualizar_tabla_categorias();
-                    }
-                    Toast.fire(result);
-                },
-                error: function(xhr, status) {
-                    console.log(xhr.responseText);
-                },
-                complete: function() {
-                    $("#guardar_categoria").removeAttr('disabled');
-                    $("#guardar-categoria-icon").removeClass('spinner-border spinner-border-sm');
-                    $("#guardar-categoria-icon").addClass('fa-save');
-                }
-            })
+            var data = new FormData();
+            data.append('img_producto', $("#producto_img_producto")[0].files[0]);
+            console.log(data);
+
         },
         onError: function(e) {}
     }, {
@@ -138,7 +118,8 @@ function actualizar_tabla_categorias() {
         },
         success: function(json) {
             if (json.error) {
-                Toast.fire({ type: 'error', title: `No se pudo actualizar la tabla de categorías. ${json.error}` });
+                Toast.fire({ type: 'error', title: `
+                            No se pudo actualizar la tabla de categorías.$ { json.error } ` });
             } else {
                 if ($.fn.dataTable.isDataTable('#tabla_categorias')) {
                     tabla_categorias.destroy();
@@ -147,9 +128,6 @@ function actualizar_tabla_categorias() {
                     "data": json.categorias,
                     "autoWidth": true,
                     "columns": [{
-                            "data": "ID_CATEGORIA",
-                            "title": "#"
-                        }, {
                             "data": "NOMBRE_CATEGORIA",
                             "title": "Nombre"
                         },
@@ -158,8 +136,8 @@ function actualizar_tabla_categorias() {
                             "title": "Estado",
                             "render": function(data, type, row, meta) {
                                 return row.ESTADO_CATEGORIA == 'A' ?
-                                    '<span class="badge badge-success">ACTIVO</span>' :
-                                    '<span class="badge badge-danger">NO ACTIVO</span>';
+                                    '<p class="text-success">ACTIVO<p>' :
+                                    '<p class="text-danger">NO ACTIVO<p>';
                             }
                         },
                         {
@@ -168,7 +146,7 @@ function actualizar_tabla_categorias() {
                                 return (json.permisos.UPDATE_PRIV == 'Y' ?
                                         '<span title="Editar"><button type="button" class="btn btn-info editar_categoria" data-id-categoria="' + row.ID_CATEGORIA + '"><i class="fas fa-edit"></i></button></span>' : '') +
                                     (json.permisos.DELETE_PRIV == 'Y' ?
-                                        '<span title="Eliminar"><button type="button" class="btn btn-danger eliminar_categoria" data-id-categoria="' + row.ID_CATEGORIA + '"><i class="fas fa-trash"></i></button></span>' : '');
+                                        '<span title="Eliminar"><button type="button" class="btn btn-danger eliminar_categoria" data-id-categoria="' + row.ID_CATEGORIA + '"><i class="fas fa-edit"></i></button></span>' : '');
                             }
                         }
                     ]

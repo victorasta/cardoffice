@@ -147,6 +147,9 @@ function actualizar_tabla_marcas() {
                     "data": json.marcas,
                     "autoWidth": true,
                     "columns": [{
+                            "data": "ID_MARCA",
+                            "title": "#"
+                        }, {
                             "data": "NOMBRE_MARCA",
                             "title": "Nombre"
                         },
@@ -155,17 +158,17 @@ function actualizar_tabla_marcas() {
                             "title": "Estado",
                             "render": function(data, type, row, meta) {
                                 return row.ESTADO_MARCA == 'A' ?
-                                    '<p class="text-success">ACTIVO<p>' :
-                                    '<p class="text-danger">NO ACTIVO<p>';
+                                    '<span class="badge badge-success">ACTIVO</span>' :
+                                    '<span class="badge badge-danger">NO ACTIVO</span>';
                             }
                         },
                         {
                             "title": "Acciones",
                             "render": function(data, type, row, meta) {
                                 return (json.permisos.UPDATE_PRIV == 'Y' ?
-                                        '<span title="Editar"><button type="button" class="btn btn-info editar_marca" data-id-marca="' + row.ID_MARCA + '"><i class="fas fa-edit"></i></button></span>' : '') +
+                                        '<span title="Editar"><button type="button" class="btn btn-info editar_marca" data-id-marca="' + row.ID_MARCA + '"><i class="fas fa-edit"></i></button></span' : '') +
                                     (json.permisos.DELETE_PRIV == 'Y' ?
-                                        '<span title="Eliminar"><button type="button" class="btn btn-danger eliminar_marca" data-id-marca="' + row.ID_MARCA + '"><i class="fas fa-edit"></i></button></span>' : '');
+                                        '<span title="Eliminar"><button type="button" class="btn btn-danger eliminar_marca" data-id-marca="' + row.ID_MARCA + '"><i class="fas fa-trash"></i></button></span>' : '');
                             }
                         }
                     ]

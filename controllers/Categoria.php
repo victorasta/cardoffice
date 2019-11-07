@@ -1,5 +1,5 @@
 <?php
-class Categoria
+class Categoria extends Controller
 {
     function __construct()
     {
@@ -26,16 +26,14 @@ class Categoria
         $usuario_helper = new UsuarioHelper();
         if (!$usuario_helper->verificar_sesion(MODULO_CATEGORIAS, SELECT_PRIV, TRUE)) {
             echo json_encode([
-                'error' => 'Sin acceso concedido'
+                'error' => 'Sin acceso concedido.'
             ]);
             return;
         }
-        Cargar::Modelo('Categoria');
-        Cargar::Modelo('Usuario');
-        $categoriaModel = new CategoriaModel();
-        $categorias = $categoriaModel->consultar_categorias();
-        $usuarioModel = new UsuarioModel();
-        $permisos = $usuarioModel->consultar_permisos_usuario($_SESSION['ID_USUARIO'], MODULO_CATEGORIAS);
+        $this->cargar_modelo('Categoria');
+        $this->cargar_modelo('Usuario');
+        $categorias = $this->CategoriaModel->consultar_categorias();
+        $permisos = $this->UsuarioModel->consultar_permisos_usuario($_SESSION['ID_USUARIO'], MODULO_CATEGORIAS);
         Database::close();
         echo json_encode([
             'categorias' => $categorias,
@@ -51,6 +49,7 @@ class Categoria
             return;
         }
         Database::initialize();
+        Cargar::Helper('Usuario');
         $usuario_helper = new UsuarioHelper();
         if (!$usuario_helper->verificar_sesion(MODULO_CATEGORIAS, SELECT_PRIV, TRUE)) {
             echo json_encode([
@@ -58,9 +57,8 @@ class Categoria
             ]);
             return;
         }
-        Cargar::Modelo('Categoria');
-        $categoriaModel = new CategoriaModel();
-        $categoria = $categoriaModel->consultar_categoria($_POST['id_categoria']);
+        $this->cargar_modelo('Categoria');
+        $categoria = $this->CategoriaModel->consultar_categoria($_POST['id_categoria']);
         Database::close();
         echo json_encode([
             'ID_CATEGORIA' => $categoria->ID_CATEGORIA,
@@ -85,9 +83,8 @@ class Categoria
             }
             Database::get()->autocommit(FALSE);
             Database::get()->begin_transaction();
-            Cargar::Modelo('Categoria');
-            $categoriaModel = new CategoriaModel();
-            $categoriaModel->eliminar_categoria($_POST['id_categoria']);
+            $this->cargar_modelo('Categoria');
+            $this->CategoriaModel->eliminar_categoria($_POST['id_categoria']);
             Database::get()->commit();
         } catch (Exception $e) {
             $error = $e->getMessage();
@@ -124,15 +121,14 @@ class Categoria
             }
             Database::get()->autocommit(FALSE);
             Database::get()->begin_transaction();
-            Cargar::Modelo('Categoria');
-            $categoriaModel = new CategoriaModel();
+            $this->cargar_modelo('Categoria');
             $nombre_categoria = mb_strtoupper($_POST['nombre_categoria'], 'utf-8');
             $estado_categoria = mb_strtoupper($_POST['estado_categoria'], 'utf-8');
             $estado_categoria = $estado_categoria != 'A' && $estado_categoria != 'I' ? 'I' : $estado_categoria;
             if ($_POST['id_categoria'] == '')
-                $categoriaModel->insertar_categoria($nombre_categoria, $estado_categoria);
+                $this->CategoriaModel->insertar_categoria($nombre_categoria, $estado_categoria);
             else
-                $categoriaModel->actualizar_categoria($_POST['id_categoria'], $nombre_categoria, $estado_categoria);
+                $this->CategoriaModel->actualizar_categoria($_POST['id_categoria'], $nombre_categoria, $estado_categoria);
             Database::get()->commit();
         } catch (Exception $e) {
             $error = $e->getMessage();

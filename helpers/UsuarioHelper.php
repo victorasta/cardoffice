@@ -12,7 +12,7 @@ class UsuarioHelper
                 return FALSE;
             }
         }
-        Cargar::Modelo('Usuario');
+        Cargar::Modelo('UsuarioModel');
         $usuariomodel = new UsuarioModel();
         if ($usuariomodel->consultar_usuario($_SESSION['ID_USUARIO'], $id_modulo, $priv) === FALSE) {
             if ($ret == FALSE) {
@@ -25,7 +25,7 @@ class UsuarioHelper
     }
     public function consultar_items_menu_usuario($id_mod = FALSE)
     {
-        Cargar::Modelo("Usuario");
+        Cargar::Modelo("UsuarioModel");
         $usuariomodel = new UsuarioModel();
         $modulos = $usuariomodel->consultar_items_menu_usuario($_SESSION['ID_USUARIO']);
         $menu = '';
@@ -67,7 +67,7 @@ class UsuarioHelper
     }
     function consultar_informacion_usuario()
     {
-        Cargar::Modelo("Usuario");
+        Cargar::Modelo("UsuarioModel");
         $usuarioModel = new UsuarioModel();
         $informacion_usuario = $usuarioModel->consultar_informacion_usuario($_SESSION['ID_USUARIO']);
         if ($informacion_usuario == FALSE)

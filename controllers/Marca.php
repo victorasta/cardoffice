@@ -1,5 +1,5 @@
 <?php
-class Marca
+class Marca extends Controller
 {
     function __construct()
     {
@@ -30,12 +30,11 @@ class Marca
             ]);
             return;
         }
-        Cargar::Modelo('Marca');
-        Cargar::Modelo('Usuario');
-        $marcaModel = new MarcaModel();
-        $marcas = $marcaModel->consultar_marcas();
-        $usuarioModel = new UsuarioModel();
-        $permisos = $usuarioModel->consultar_permisos_usuario($_SESSION['ID_USUARIO'], MODULO_MARCAS);
+        $this->cargar_modelo('Marca');
+        $this->cargar_modelo('Usuario');
+
+        $marcas = $this->MarcaModel->consultar_marcas();
+        $permisos = $this->UsuarioModel->consultar_permisos_usuario($_SESSION['ID_USUARIO'], MODULO_MARCAS);
         Database::close();
         echo json_encode([
             'marcas' => $marcas,
@@ -58,9 +57,8 @@ class Marca
             ]);
             return;
         }
-        Cargar::Modelo('Marca');
-        $marcaModel = new MarcaModel();
-        $marca = $marcaModel->consultar_marca($_POST['id_marca']);
+        $this->cargar_modelo('Marca');
+        $marca = $this->MarcaModel->consultar_marca($_POST['id_marca']);
         Database::close();
         echo json_encode([
             'ID_MARCA' => $marca->ID_MARCA,
@@ -85,9 +83,8 @@ class Marca
             }
             Database::get()->autocommit(FALSE);
             Database::get()->begin_transaction();
-            Cargar::Modelo('Marca');
-            $marcaModel = new MarcaModel();
-            $marcaModel->eliminar_marca($_POST['id_marca']);
+            $this->cargar_modelo('Marca');
+            $this->MarcaModel->eliminar_marca($_POST['id_marca']);
             Database::get()->commit();
         } catch (Exception $e) {
             $error = $e->getMessage();
@@ -124,15 +121,14 @@ class Marca
             }
             Database::get()->autocommit(FALSE);
             Database::get()->begin_transaction();
-            Cargar::Modelo('Marca');
-            $marcaModel = new MarcaModel();
+            $this->cargar_modelo('Marca');
             $nombre_marca = mb_strtoupper($_POST['nombre_marca'], 'utf-8');
             $estado_marca = mb_strtoupper($_POST['estado_marca'], 'utf-8');
             $estado_marca = $estado_marca != 'A' && $estado_marca != 'I' ? 'I' : $estado_marca;
             if ($_POST['id_marca'] == '')
-                $marcaModel->insertar_marca($nombre_marca, $estado_marca);
+                $this->MarcaModel->insertar_marca($nombre_marca, $estado_marca);
             else
-                $marcaModel->actualizar_marca($_POST['id_marca'], $nombre_marca, $estado_marca);
+                $this->MarcaModel->actualizar_marca($_POST['id_marca'], $nombre_marca, $estado_marca);
             Database::get()->commit();
         } catch (Exception $e) {
             $error = $e->getMessage();

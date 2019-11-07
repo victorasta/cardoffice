@@ -11,6 +11,8 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?= base_url ?>assets/plugins/fontawesome-free/css/all.min.css">
     <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="<?= base_url ?>assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="<?= base_url ?>assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <link rel="stylesheet" href="<?= base_url ?>assets/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="<?= base_url ?>assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
     <link rel="stylesheet" href="<?= base_url ?>assets/plugins/toastr/toastr.min.css">
@@ -37,18 +39,18 @@
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                         <img src="<?= base_url ?>assets/dist/img/cardoffice-logo.png" class="user-image img-circle elevation-2" alt="User Image">
-                        <span class="d-none d-md-inline"><?=$usuario['nombre']?></span>
+                        <span class="d-none d-md-inline"><?= $usuario['nombre'] ?></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- User image -->
                         <li class="user-header bg-info">
                             <img src="<?= base_url ?>assets/dist/img/cardoffice-logo.png" class="img-circle elevation-2" alt="User Image">
-                            <p><?=$usuario['nombre']?> - <?=$usuario['rol']?></p>
+                            <p><?= $usuario['nombre'] ?> - <?= $usuario['rol'] ?></p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <a href="#" class="btn btn-default btn-flat">Perfil</a>
-                            <a href="<?=base_url?>usuario/logout" class="btn btn-default btn-flat float-right">Cerrar sesión</a>
+                            <a href="<?= base_url ?>usuario/logout" class="btn btn-default btn-flat float-right">Cerrar sesión</a>
                         </li>
                     </ul>
                 </li>
