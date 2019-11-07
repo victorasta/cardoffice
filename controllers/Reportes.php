@@ -43,6 +43,7 @@ class Reportes extends Controller
 
     public function exportar_tabla_pdf()
     {
+        include_once 'assets/plugins/mpdf/vendor/autoload.php';
         // if (!isset($_POST['data'])) {
         //     echo json_encode([
         //         'error' => 'No data'
